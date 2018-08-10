@@ -12,8 +12,8 @@ module.exports = {
     vendor: ['vue', 'vue-router', 'vuex', 'vuex-router-sync']
   },
   output: {
-    filename: 'client-bundle.[chunkhash].js',
-    chunkFilename: '[name].bundle.js',
+    filename: 'client-bundle.[chunkhash:8].js',
+    chunkFilename: '[name].[chunkhash:8].bundle.js',
     path: path.join(process.cwd(), 'dist'),
     publicPath: '/dist/',
   },
@@ -29,8 +29,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: '[name].css',
-      chunkFilename: '[id].css',
+      filename: '[name]_[chunkhash:8].css',
+      chunkFilename: '[id]_[chunkhash:8].css',
     }),
     new OptimizeCssAssetsPlugin(),
   ],
@@ -39,13 +39,27 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
-          'file-loader',
+          {
+            loader: 'url-loader',
+            options: {
+              name: '[path][name].[ext]',
+              outputPath: 'assets/',
+              limit: 8192
+            }
+          }
         ],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: [
-          'file-loader',
+          {
+            loader: 'url-loader',
+            options: {
+              name: '[path][name].[ext]',
+              outputPath: 'assets/',
+              limit: 8192
+            }
+          }
         ],
       },
       {
@@ -84,5 +98,10 @@ module.exports = {
       'src': path.join(process.cwd(), 'src'),
       'assets': path.join(process.cwd(), 'src/assets')
     },
+  },
+  stats: {
+    // Add built modules information
+    modules: false,
+    chunks: false,
   }
 }

@@ -11,12 +11,36 @@ module.exports = merge(common, {
     useLocalIp: true,
     host: ip.address(),
     hot: true,
-    noInfo: true,
-    open: true
+    open: true,
+    stats: {
+      // Add built modules information
+      modules: false,
+    }
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
   ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'postcss-loader',
+        ]
+      },
+      {
+        test: /\.styl(us)?$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'postcss-loader',
+          'stylus-loader',
+        ]
+      },
+    ]
+  },
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js'

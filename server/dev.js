@@ -10,8 +10,6 @@ module.exports = function setupDevServer (app, cb) {
   let bundle
   let template
 
-  app.use('/dll', express.static(resolve('./../dll')))
-
   // modify client config to work with hot middleware
   clientConfig.mode = 'development'
   clientConfig.entry.app = ['webpack-hot-middleware/client', clientConfig.entry.app]

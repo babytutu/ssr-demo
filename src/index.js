@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import { sync } from 'vuex-router-sync'
 import store from './store'
 import routes from './router/routes'
+import './assets/style/style.styl'
 
 import App from './app.vue'
 

@@ -24,7 +24,6 @@ if (isProd) {
 }
 
 app.use('/dist', express.static(resolve('./../dist')))
-app.use('/dll', express.static(resolve('./../dist/dll')))
 
 app.get('*', (req, res) => {
   if (!renderer) {
